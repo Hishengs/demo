@@ -32,3 +32,14 @@ TODO
 ### pnpm
 
 TODO
+
+## 参考文章
+
+[平铺的结构不是 node_modules 的唯一实现方式](https://pnpm.io/zh/blog/2020/05/27/flat-node-modules-is-not-the-only-way)
+
+[基于符号链接的 node_modules 结构](https://pnpm.io/zh/symlinked-node-modules-structure)
+
+[npm - workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces)
+
+[Monorepo 的这些坑，我们帮你踩过了！
+v](https://juejin.cn/post/6972139870231724045)

@@ -6,10 +6,45 @@ importers:
     specifiers: {}
 
   packages/logger:
-    specifiers: {}
+    specifiers:
+      axios: ^0.24.0
+    dependencies:
+      axios: 0.24.0
 
   packages/monitor:
     specifiers:
       logger: workspace:^
     dependencies:
       logger: link:../logger
+
+  packages/optimus:
+    specifiers:
+      logger: workspace:^
+      web-vitals: ^2.1.3
+    dependencies:
+      logger: link:../logger
+      web-vitals: 2.1.3
+
+packages:
+
+  /axios/0.24.0:
+    resolution: {integrity: sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==}
+    dependencies:
+      follow-redirects: 1.14.7
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /follow-redirects/1.14.7:
+    resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: false
+
+  /web-vitals/2.1.3:
+    resolution: {integrity: sha512-+ijpniAzcnQicXaXIN0/eHQAiV/jMt1oHGHTmz7VdAJPPkzzDhmoYPSpLgJTuFtUh+jCjxCoeTZPg7Ic+g8o7w==}
+    dev: false
