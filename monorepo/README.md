@@ -1,5 +1,30 @@
 # 多包管理 / 单代码仓库解决方案比较
 
+什么是 Monorepo，就是把多个项目放在一个仓库里面，相对立的是传统的 MultiRepo 模式，即每个项目对应一个单独的仓库来分散管理。
+
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/75a56317bdf94794a8b29f6cd184c888~tplv-k3u1fbpfcp-watermark.awebp)
+
+Monorepo 的出现，可以解决 MultiRepo 的一些痛点：
+
+- 代码、模块复用
+- 依赖版本更新与对齐
+- 开发配置，测试，CI/CD（工作流）复用等
+- 业务割裂
+
+Monorepo 需要注意的问题
+
+- 不同项目间开发规范对齐
+- 不同项目间构建工具对齐
+- 项目间依赖分析、依赖安装
+- 不同项目间 lint, test 对齐
+- 不同项目间 CI/CD 对齐
+- 增量构建、测试、部署等
+- 权限管理问题
+- 分支管理 / Git log
+- 需要有统一的 Monorepo 维护者
+
+> 业务项目是否采用 Monorepo 仍需谨慎；如果是组件库/工具库则建议采用
+
 目前比较知名的包管理器
 
 - [npm](https://www.npmjs.com/)
@@ -73,7 +98,9 @@ npm 在 v3 之前，node_modules 下依赖安装与 package.json 声明的是一
 
 npm 和 yarn 1.x 平铺的安装方式，仍然存在以下问题：
 
-首先，Phantom dependencies (幽灵依赖、隐式依赖)。因为 `node_modules` 下的依赖与 `package.json` 声明的依赖不再一一对应，被平铺到根目录下安装的 `依赖的依赖`，很可能被我们的代码引用到，却没在 `package.json` 显式声明。
+首先，**Phantom dependencies (幽灵依赖、隐式依赖)**。
+
+因为 `node_modules` 下的依赖与 `package.json` 声明的依赖不再一一对应，被平铺到根目录下安装的 `依赖的依赖`，很可能被我们的代码引用到，却没在 `package.json` 显式声明。
 ### yarn > 1.x
 
 TODO
@@ -83,6 +110,8 @@ TODO
 TODO
 
 ## 参考文章
+
+[现代前端工程为什么越来越离不开 Monorepo?](https://juejin.cn/post/6944877410827370504)
 
 [平铺的结构不是 node_modules 的唯一实现方式](https://pnpm.io/zh/blog/2020/05/27/flat-node-modules-is-not-the-only-way)
 
