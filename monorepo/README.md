@@ -100,14 +100,74 @@ npm 和 yarn 1.x 平铺的安装方式，仍然存在以下问题：
 
 首先，**Phantom dependencies (幽灵依赖、隐式依赖)**。
 
-因为 `node_modules` 下的依赖与 `package.json` 声明的依赖不再一一对应，被平铺到根目录下安装的 `依赖的依赖`，很可能被我们的代码引用到，却没在 `package.json` 显式声明。
+因为 `node_modules` 下的依赖与 `package.json` 声明的依赖不再一一对应，被平铺到根目录下安装的 `依赖的依赖`，很可能被我们的代码引用到，却没在 `package.json` 显式声明。因此会带来一些潜在问题，例如在未来，某些依赖不再被使用，你的代码将会构建失败。
 ### yarn > 1.x
 
-TODO
+yarn 从 v2 开始，不再采用 npm 的 node_modules 安装方式，而是采取了更激进的 [`Plug'n'Play`](https://yarnpkg.com/features/pnp) 策略，详见 [yarn v2+ 的 Plug'n'Play](./pnp.md)
+
+`yarn v2+` 的安装方式也发生了变化，`yarn 1.x` 可以全局安装：
+
+```sh
+npm i -g yarn
+```
+
+`yarn v2+` 不再支持全局安装，仅支持在 `项目内` 使用，但仍需借助全局的 `yarn 1.x`
+
+首先，先将全局的 `yarn 1.x` 版本升级到最新：
+
+```sh
+npm i -g yarn@latest
+```
+
+在项目根目录下执行：
+
+```sh
+yarn set version berry
+// 或者 yarn set version 2
+// 或者 yarn set version 3
+```
+
+此命令会在项目内生成相应配置文件和目录，之后，每次执行 `yarn` 相关命令都会使用相应版本
 
 ### pnpm
 
-TODO
+`pnpm` 的依赖安装策略跟 `npm` 和 `yarn` 也大不相同，同时解决了后 2 者存在的问题，以官方的示意图为例：
+
+![](./motivation.jpg)
+
+假如你的项目依赖如下
+
+```json
+{
+  "name": "pnpm-repo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "koa": "^2.13.4"
+  }
+}
+```
+
+执行 `pnpm install` 后，你的 `node_modules` 会变成这样
+
+```js
+|-- node_modules
+  |-- .pnpm
+  |-- express
+  |-- koa
+```
+
+可以看到，除了 `.pnpm` 目录，其他的依赖和你 `package.json` 声明的一一对应。那 `依赖的依赖` 呢？难道又陷入了 `依赖地狱`？
+
+其实，`.pnpm` 目录另有乾坤。
 
 ## 参考文章
 
