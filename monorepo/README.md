@@ -1,6 +1,6 @@
 # 多包管理 / 单代码仓库解决方案比较
 
-什么是 Monorepo，就是把多个项目放在一个仓库里面，相对立的是传统的 MultiRepo 模式，即每个项目对应一个单独的仓库来分散管理。
+什么是 Monorepo，就是把多个项目放在一个仓库里面，相对应的是传统的 MultiRepo 模式，即每个项目对应一个单独的仓库来分散管理。
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/75a56317bdf94794a8b29f6cd184c888~tplv-k3u1fbpfcp-watermark.awebp)
 
@@ -119,15 +119,26 @@ npm i -g yarn
 npm i -g yarn@latest
 ```
 
-在项目根目录下执行：
+如果是初始化新项目：
+
+```sh
+yarn init -2
+```
+
+如果是已有项目升级，在项目根目录下执行：
 
 ```sh
 yarn set version berry
-// 或者 yarn set version 2
-// 或者 yarn set version 3
+// 或者 yarn set version latest
 ```
 
+> 可执行 `yarn set version --help` 查看其他版本设置
+
 此命令会在项目内生成相应配置文件和目录，之后，每次执行 `yarn` 相关命令都会使用相应版本
+
+然后重新执行 `yarn install` 安装依赖
+
+`yarn v2+` 相关介绍详见 [What Yarn Modern Bring?](./yarn-modern.md)
 
 ### pnpm
 
