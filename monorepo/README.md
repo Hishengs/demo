@@ -180,6 +180,102 @@ yarn set version berry
 
 其实，`.pnpm` 目录另有乾坤。
 
+## 多包管理方案比较
+
+比较之前，将统一使用如下项目作为示例
+
+```js
+|-- /my-workspaces
+  |-- /packages
+    |-- /logger
+      |-- index.js
+      |-- package.json
+    |-- /monitor
+      |-- index.js
+      |-- package.json
+  |-- package.json
+```
+
+包含 2 个包：`logger`, `monitor`，其中后者依赖前者
+
+`logger/package.json`
+
+```json
+{
+  "name": "logger",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}
+```
+
+`monitor/package.json`
+
+```json
+{
+  "name": "monitor",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "logger": "~1.0.0"
+  }
+}
+```
+
+### lerna
+
+全局安装 `lerna`
+
+```sh
+npm i -g lerna
+```
+
+在你的项目内执行
+
+```sh
+lerna init
+```
+
+将会出现一个 `lerna.json` 文件，在此文件中配置你的 `packages` 目录
+
+```json
+{
+  "packages": [
+    "packages/*"
+  ],
+  "version": "0.0.0"
+}
+```
+
+接着，执行 `lerna bootstrap`，会做 2 件事
+
+- `link` 工作区内所有的包，使得依赖可见，相当于执行 `lerna link`
+- 安装工作区内所有的包的依赖，相当于执行 `lerna install`
+
+之后，你会在 `monitor/node_modules` 下发现一个指向 `logger` 的软链接，也就是 `lerna` 帮你做的事：发现你依赖与工作区内的包（`"logger": "~1.0.0"`），且符合指定的版本，会自动帮你创建软链接，让你可以直接引用，如果版本不符合，则会直接从 `registry` 获取安装
+
+`lerna` 还能帮你做很多别的事，譬如统一执行 `script`，统一发布等等，详见[官方文档](https://lerna.js.org/)
+
+但是，`lerna` 没有做 `依赖提升`，将多包重复的依赖提升到顶层的 `node_modules`，毕竟它不是一个包管理器，不会帮你走依赖分析，下载等；需要结合 `yarn` 等别的包管理器才能达到这样的效果
+
 ## 参考文章
 
 [现代前端工程为什么越来越离不开 Monorepo?](https://juejin.cn/post/6944877410827370504)
