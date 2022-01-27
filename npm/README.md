@@ -274,6 +274,65 @@ module.exports = {};
 ]
 ```
 
+### files *
+
+`files` 字段定义了当作为依赖被安装时，哪些文件会被包含。是一个由 `文件（夹）路径` 或者 `glob pattern (*, **/*, and such)` 构成的数组。
+
+当发布时，指定的文件会被打包上传。
+
+如果不指定此字段，则默认是 `["*"]`，也就是包含所有文件。
+
+```json
+{
+  "files": [
+    "src/**/*",
+    "dist/
+  ]
+}
+```
+
+与此相反的，你可以提供一个 `.npmignore` 文件，用于指定那些文件应该被忽略
+
+```.npmignore
+.DS_Store
+test
+demo
+```
+
+> `.npmignore` 文件可出现在根目录，也可以出现在子目录
+
+> 当 `.npmignore` 与 `files` 存在相同指定时，根目录的 `.npmignore` 会失效，以 `files` 为准；而子目录的 `.npmignore` 则相反，会覆盖 `files` 的声明。
+
+需要注意的是，有一些特殊的文件，是不受上述两个规则（`files` 和 `.npmignore`）限制的：
+
+以下文件是一定会被打包上传的：
+
+- `package.json`
+- `README`
+- `LICENSE` / `LICENCE`
+- `"main"` 字段指定的入口文件
+
+> `README` 和 `LICENSE` 会忽略大小写
+
+相反地，有些文件和目录一定会被忽略：
+
+- `.git`
+- `CVS`
+- `.svn`
+- `.hg`
+- `.lock-wscript`
+- `.wafpickle-N`
+- `.*.swp`
+- `.DS_Store`
+- `._*`
+- `npm-debug.log`
+- `.npmrc`
+- `node_modules`
+- `config.gypi`
+- `*.orig`
+- `package-lock.json`
+
+
 ## npm commands
 
 TODO
