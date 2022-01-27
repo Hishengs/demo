@@ -45,6 +45,8 @@ npm init --yes // or npm init -y
 
 在上述字段中，有一个 `main` 字段用于定义当前包的代码入口文件，现在没有，我们创建一个
 
+`my-package/index.js`
+
 ```js
 module.exports = {};
 ```
@@ -96,7 +98,7 @@ module.exports = {};
 
 ## node_modules
 
-`node_modules` 是 npm 安装依赖的目录，`npm v3+` 所有不冲突的依赖都会直接被平铺安装在 `node_modules` 下，即使是 `依赖的依赖`；如果出现版本冲突，则相关依赖会被安装在自己的 `node_modules` 下，因此 `node_modules` 是一个嵌套的目录结构（仅示意）：
+`node_modules` 是 npm 安装存储依赖的目录，`npm v3+` 所有不冲突的依赖都会直接被平铺安装在 `node_modules` 下，即使是 `依赖的依赖`；如果出现版本冲突，则相关依赖会被安装在自己的 `node_modules` 下，因此 `node_modules` 是一个嵌套的目录结构（仅示意）：
 
 ```js
 |-- /my-package
@@ -109,13 +111,57 @@ module.exports = {};
     |-- /cookies
     |-- /...
     |-- /koa
-      |-- /node_modules // <===
+      |-- /node_modules // <=== 有冲突的依赖安装在自身的 node_modules 目录下（仅示意）
         |-- /koa-compose
 ```
 
 ## package.json 字段
 
-TODO
+接下来会安装字段的**常用程度**和**重要性**排序进行介绍：
+
+### name
+
+描述当前包的名称，命名需符合一些规则
+
+- 少于或等于 214 个字符
+- **范围包**的名称可以以点或下划线开头 (**非范围包**不允许)
+- 名称中不允许出现**大写字母**
+- 不要使用与 Node 内置模块相同的名称（例如 `fs`）
+- 如果一个包预计发布，最好先到 [npmjs.org](https://www.npmjs.com/) 查询下是否有相同名称的包
+
+可以通过 [`validate-npm-package-name`](https://github.com/npm/validate-npm-package-name) 这个工具检验你的包名是否符合规范
+
+### version
+
+定义当前包的版本，以 `x.y.z` 的格式，即 `major` 主版本, `Minor` 次版本, `Patch` 修正版本，也就是需符合 [semver](https://semver.org/) 版本规范
+
+可以通过 [`semver`](https://github.com/npm/node-semver) 这个工具检验你的包版本是否符合规范
+
+需要注意的是，发布时，需要升级你的 `version`，必须比上一次版本大
+
+### description
+
+当前包的描述信息，有助于别人查找和了解你的包
+
+### keywords
+
+包的关键词数组，也是用于别人查找你的包，例如
+
+```json
+{
+  "keywords": [
+    "web",
+    "app",
+    "http",
+    "application",
+    "framework",
+    "middleware",
+    "rack"
+  ]
+}
+```
+
+> `description` 和 `keywords` 都可以通过 `npm search` 被索引到
 
 ## npm commands
 
