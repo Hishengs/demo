@@ -117,7 +117,7 @@ module.exports = {};
 
 ## package.json 字段
 
-接下来会安装字段的**常用程度**和**重要性**排序进行介绍：
+接下来会按照装字段的**常用程度**和**重要性**排序进行介绍：
 
 ### name
 
@@ -133,7 +133,7 @@ module.exports = {};
 
 ### version
 
-定义当前包的版本，以 `x.y.z` 的格式，即 `major` 主版本, `Minor` 次版本, `Patch` 修正版本，也就是需符合 [semver](https://semver.org/) 版本规范
+定义当前包的版本，以 `x.y.z` 的格式，即 `Major` 主版本, `Minor` 次版本, `Patch` 修正版本，也就是需符合 [semver](https://semver.org/) 版本规范
 
 可以通过 [`semver`](https://github.com/npm/node-semver) 这个工具检验你的包版本是否符合规范
 
@@ -162,6 +162,117 @@ module.exports = {};
 ```
 
 > `description` 和 `keywords` 都可以通过 `npm search` 被索引到
+
+### homepage
+
+项目主页，一般可以指到 github
+
+```json
+"homepage": "https://github.com/owner/project#readme"
+```
+
+### bugs
+
+告诉别人，去哪里反馈 bug
+
+```json
+{
+  "url" : "https://github.com/owner/project/issues",
+  "email" : "project@hostname.com"
+}
+```
+
+### license
+
+版权声明，一般的如 `MIT`, `ISC` 等，更多可查看 [License List](https://spdx.org/licenses/)
+
+常见声明方式
+
+```json
+{
+  "license": "ISC"
+}
+```
+
+多个声明协议
+
+```json
+{
+  "license": "(MIT OR Apache-2.0)"
+}
+```
+
+指到单独的声明文件
+
+```json
+{
+  "license": "SEE LICENSE IN <filename>"
+}
+```
+
+或者暂不声明
+
+```json
+{
+  "license": "UNLICENSED"
+}
+```
+
+### author
+
+可以使用如下 `people` 单元，描述当前包的作者相关信息
+
+```json
+{
+  "name" : "Barney Rubble",
+  "email" : "b@rubble.com",
+  "url" : "http://barnyrubble.tumblr.com/"
+}
+```
+
+或者
+
+```json
+"Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)"
+```
+
+则 author 可以是
+
+```json
+
+"author": {
+  "name" : "Barney Rubble",
+  "email" : "b@rubble.com",
+  "url" : "http://barnyrubble.tumblr.com/"
+}
+```
+
+或者
+
+```json
+{
+  "author": "Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)"
+}
+```
+
+### contributors
+
+描述当前包的参与贡献者，由一个 `people` 数组构成
+
+```json
+"contributors": [
+  {
+    "name" : "Barney Rubble",
+    "email" : "b@rubble.com",
+    "url" : "http://barnyrubble.tumblr.com/"
+  },
+  {
+    "name" : "Harry Potter",
+    "email" : "harry.potter@gmail.com",
+    "url" : "http://harry-potter.com/"
+  },
+]
+```
 
 ## npm commands
 
