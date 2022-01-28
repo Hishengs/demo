@@ -332,6 +332,32 @@ demo
 - `*.orig`
 - `package-lock.json`
 
+### main *
+
+用于指定当前包的入口文件，当包被当作依赖引用时，会查看当前包下 `package.json` 是否定义了 `main` 字段，若定义了则使用其指定的入口文件，否则寻找包下的 `index.js` 文件作为入口文件
+
+```json
+{
+  "main": "src/index.js"
+}
+```
+
+### browser *
+
+如果你的包是面向浏览器使用的，建议使用此字段指定入口文件。以便于使用者以及构建工具（如 webpack）根据不同环境分析使用不同的入口文件。
+
+```json
+{
+  "main": "src/index.js",
+  "browser": "dist/my-package.esm.js",
+}
+```
+
+> 如上，如果你的包即可用于 Node 也可用于浏览器环境，则可同时指定两个入口；构建工具会根据配置和环境决定使用哪个入口文件。
+
+### bin *
+
+`bin` 字段对于普通用户不太常见，但对于脚手架开发者却很熟悉。
 
 ## npm commands
 
