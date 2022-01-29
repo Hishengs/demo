@@ -1,6 +1,8 @@
 # npm 小书
 
-npm 原本是服务于 nodejs 的 [CommonJS](http://wiki.commonjs.org/wiki/CommonJS) module 的包管理器，但目前已成为 Javascript 生态的包管理器，提供了包括但不限于包的注册、存储、管理、发布、依赖解析与安装等功能。我们将在此小书中一一展开介绍。
+npm 原本是服务于 nodejs 的 [CommonJS](http://wiki.commonjs.org/wiki/CommonJS) module 的包管理器，但目前已成为 Javascript 生态的包管理器，提供了包括但不限于包的注册、托管存储、管理、发布、依赖解析与安装等功能。我们将在此小书中一一展开介绍。
+
+> 官网的介绍：npm is the world's largest software registry. Open source developers from every continent use npm to share and borrow packages, and many organizations use npm to manage private development as well.
 
 广义上讲，只要目录下包含了 [package.json](https://docs.npmjs.com/cli/v8/configuring-npm/package-json) 文件，该目录就会被当作是一个 npm 的包，能够被索引和依赖。
 
@@ -359,6 +361,60 @@ demo
 
 `bin` 字段对于普通用户不太常见，但对于脚手架开发者却很熟悉。
 
+`bin` 字段用于指定一个或多个可执行文件，譬如
+
+```json
+{
+  "bin": {
+    "create-app": "./bin/create.js"
+  }
+}
+```
+
+如上，声明了一个 `create-app` 的命令，并指向了包内的 `./bin/create.js` 可执行文件，此时，如果我们在当前包路径执行
+
+- `npm exec create-app`
+- `npm exec create-app`
+- `npm exec create-app`
+
+上述任意命令之一，即会执行 `./bin/create.js` 文件
+
+我们创建一个简单的 `create.js` 执行时只输出一个 `hello world`:
+
+```js
+#!/usr/bin/env node
+
+console.log('hello world');
+```
+
+## npm scripts
+
+TODO
+
+## package-lock.json
+
+TODO
+
+## 如何发布一个 npm 包
+
+TODO
+
+## 配置你的 npm
+
+TODO
+
+## 关于 npx
+
+TODO
+
+## 单一代码库：workspace
+
+TODO
+
 ## npm commands
 
 TODO
+
+## 私有包，域包
+
+## 如何搭建一个私有 npm 服务
