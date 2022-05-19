@@ -1,0 +1,13 @@
+{
+  "name": "tree-shaking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "../../node_modules/.bin/webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "sideEffects": false
+}

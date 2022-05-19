@@ -44,7 +44,7 @@ Monorepo 需要注意的问题
 
 ### npm < v3
 
-npm 在 v3 之前，node_modules 下依赖安装与 package.json 声明的是一一对应的，而依赖的依赖，则单独安装在依赖自己下面的 node_modules，以此类推。这种方式，简单直接明了，但会造成依赖黑洞，依赖层次过深，存在大量冗余的重复依赖，导致磁盘浪费，安装缓慢。
+npm 在 v3 之前，node_modules 下依赖安装与 package.json 声明的是一一对应的，而依赖的依赖，则单独安装在依赖自己下面的 node_modules，以此类推。
 
 ```js
 |-- node_modules
@@ -70,9 +70,19 @@ npm 在 v3 之前，node_modules 下依赖安装与 package.json 声明的是一
                   |-- dep3
 ```
 
+这种方式，简单直接明了，但会造成：
+
+1.&nbsp;**node_modules 体积巨大**，因为容易存在大量重复依赖，无法复用，浪费大量磁盘空间，影响写入（安装）速度
+
+2.&nbsp;**嵌套层级过深**，依赖定位慢，路径过长在某些系统如 `windows` 下会有问题（超过了 `windows` 能处理的最大路径长度）
+
+`node_modules` 嵌套式依赖堪比黑洞
+
+![](./assets/img/node_modules-hell.png)
+
 ### npm v3+ , yarn 1.x
 
-这两个版本，都会尽可能将所有依赖平铺到 node_modules 根上，解决层级过深、重复依赖等问题：
+这两个版本，都会尽可能将所有依赖提升（hoist）平铺到 node_modules 根上，解决层级过深、重复依赖等问题：
 
 ```js
 |-- node_modules
@@ -144,7 +154,7 @@ yarn set version berry
 
 `pnpm` 的依赖安装策略跟 `npm` 和 `yarn` 也大不相同，同时解决了后 2 者存在的问题，以官方的示意图为例：
 
-![](./motivation.jpg)
+![](./assets/img/motivation.jpg)
 
 假如你的项目依赖如下
 
