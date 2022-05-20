@@ -1,0 +1,23 @@
+{
+  "name": "learn-swc",
+  "version": "1.0.0",
+  "description": "learn swc",
+  "main": "index.js",
+  "scripts": {
+    "build": "swc ./index.js -o ./dist/output.js",
+    "bundle-react": "cd react-app && npx spack",
+    "bundle": "cd bundle && npx spack",
+    "build-wp": "npx ../node_modules/.bin/webpack --config swc-loader/webpack.config.js"
+  },
+  "author": "Hisheng",
+  "license": "ISC",
+  "devDependencies": {
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.2.186",
+    "swc-loader": "^0.2.1"
+  },
+  "dependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  }
+}
